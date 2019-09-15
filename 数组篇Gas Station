@@ -1,0 +1,23 @@
+134. Gas Station
+题目大意：给出每个站点可加的油以及从该站点到下一个站点需要消耗的油，问是否存在一个站点出发后能回到出发点，如果没有返回-1 有返回站点下标
+题解：
+1.如果所有站点能加的油小于消耗的油，无法回到出发点
+2.否则可以回到出发点，从0开始找合适的出发点。 站点下标用i表示，如果(sum += gas[i]-cost[i]) < 0,sum置零，最近一次sum < 0所在坐标至i均不能作为出发点：
+假设他们之间的点存在gas[j]-cost[j]>0但sum仍<0，说明j至i之间的点gas-cost总和<0,不满足条件。所以继续从i+1开始看
+
+public int canCompleteCircuit(int[] gas, int[] cost) {
+    int sum = 0;
+    int totalSum = 0;
+    int res = 0;
+    for(int i = 0; i < gas.length; i++){
+        totalSum += gas[i]-cost[i];
+        sum += gas[i]-cost[i];
+        if(sum < 0){
+            res = i+1;
+            sum = 0;
+        }
+    }
+    if(totalSum < 0)
+        return -1;
+    return res;
+}
