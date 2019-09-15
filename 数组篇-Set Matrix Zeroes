@@ -1,0 +1,34 @@
+73. Set Matrix Zeroes
+
+题目：给定一个m*n的矩阵，如果矩阵中元素为0，将元素所在行和列都置为0 难度：medium
+题解：
+设置两个数组 int[] rowset, int[] colset,通过数组下标记录矩阵元素为0的元素所在的行和列，遍历矩阵如果元素为0，rowset[i]++,closet[j]++
+分别遍历数组rowset和colset，如果元素!=0，对数组元素进行修改
+
+具体代码：
+ public void setZeroes(int[][] matrix) {
+        int[] rowset = new int[matrix.length];
+        int[] colset = new int[matrix[0].length];
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[i].length; j++){
+                if(matrix[i][j] == 0){
+                    rowset[i]++;
+                    colset[j]++;
+                }
+            }
+        }
+        for(int i = 0; i < rowset.length; i++){
+            if(rowset[i] != 0){
+                 for(int j = 0; j < matrix[i].length; j++){
+                     matrix[i][j] = 0;
+                 }
+            }
+        }
+        for(int i = 0; i < colset.length; i++){
+            if(colset[i] != 0){
+                 for(int j = 0; j < matrix.length; j++){
+                    matrix[j][i] = 0;
+                }
+            }
+        }
+    }
